@@ -1,0 +1,20 @@
+# directories %w(lib test)
+# clearing :on
+
+# # Crystal minitest
+# guard :exec, cmd: 'crystal spec', cmd_options: '-- --chaos' do
+#   watch(%r{^spec/(.*)_spec\.cr})
+#   watch(%r{^src/[^/+]+/(.+)\.cr$})  { |m| "spec/#{m[1]}_spec.cr" }
+# end
+
+# # Elixir Test
+# guard :exec, cmd: 'mix test', name: 'Test'  do
+#   watch(%r{^test/(.*)_test\.exs})
+#   watch(%r{^lib/(.+)\.ex$})           { |m| "test/#{m[1]}_test.exs" }
+#   watch(%r{^test/test_helper.exs$})   { "test" }
+# end
+
+# # Elixir Credo
+# guard :exec, cmd: 'mix credo --strict --format=oneline', name: 'Credo', color: :yellow do
+#   watch(%r{\.(erl|ex|exs|eex|xrl|yrl)$})
+# end
