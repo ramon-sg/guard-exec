@@ -40,10 +40,7 @@ Layout/TrailingBlankLines:
 
 # Offense count: 1
 Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/guard/exec.rb'
+  Enabled: false
 
 # Offense count: 5
 # Cop supports --auto-correct.
@@ -114,3 +111,6 @@ Style/UnneededPercentQ:
 # URISchemes: http, https
 Metrics/LineLength:
   Max: 114
+
+Metrics/MethodLength:
+  Max: 13
