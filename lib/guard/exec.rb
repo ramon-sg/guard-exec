@@ -4,7 +4,7 @@ require 'guard/compat/plugin'
 
 module Guard
   class Exec < Plugin
-    DEFAULT_COLOR = :light_green
+    attr_accessor :options
 
     # Initializes a Guard plugin.
     # Don't do any work here, especially as Guard plugins get initialized even if they are not in an active group!
@@ -15,13 +15,8 @@ module Guard
     # @option options [Boolean] any_return allow any object to be returned from a watcher
     #
     def initialize(options = {})
-      opts = options.dup
-      @command = opts.delete(:cmd)
-      @name = opts.delete(:name)
-      @color = opts.delete(:color) || DEFAULT_COLOR
-      @command_options = opts.delete(:cmd_options)
-
-      super(opts)
+      super
+      @options = Options.new(options)
     end
 
     # Called once when Guard starts. Please override initialize method to init stuff.
@@ -56,7 +51,7 @@ module Guard
     # @return [Object] the task result
     #
     def run_all
-      Compat::UI.info("Running all #{@name.downcase}")
+      Compat::UI.info("Running all #{options[:name].downcase}")
       exec_command
     end
 
@@ -95,11 +90,19 @@ module Guard
     private
 
     def exec_command(paths = nil)
-      cmd = [@command, paths, @command_options].compact.join ' '
+      cmd = [
+        options[:command],
+        paths,
+        options[:command_options]
+      ].compact.join(' ')
 
-      puts "\n❱ #{@name.capitalize}".colorize(@color) + " [exec] : - #{cmd}\n\n"
+      puts "\n#{title_display} [exec] : - #{cmd}\n\n"
 
       system cmd
+    end
+
+    def title_display
+      "❱ #{options[:name].capitalize}".colorize(options[:color])
     end
   end
 end
