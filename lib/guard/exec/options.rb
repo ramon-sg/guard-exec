@@ -4,7 +4,8 @@ module Guard
       DEFAULTS = {
         command: nil,
         command_options: nil,
-        name: 'Command',
+        command_arguments: nil,
+        name: nil,
         color: :light_green
       }.freeze
 

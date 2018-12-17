@@ -5,7 +5,8 @@ RSpec.describe Guard::Exec::Options do
 
       it { expect(subject[:command]).to be_nil }
       it { expect(subject[:command_options]).to be_nil }
-      it { expect(subject[:name]).to eq 'Command' }
+      it { expect(subject[:command_arguments]).to be_nil }
+      it { expect(subject[:name]).to be_nil }
       it { expect(subject[:color]).to eq :light_green }
     end
 
@@ -13,14 +14,16 @@ RSpec.describe Guard::Exec::Options do
       subject do
         described_class.with_defaults(
           command: 'crystal spec',
-          command_options: '-- --chaos',
+          command_options: '-d',
+          command_arguments: '-- --chaos',
           name: 'Minitest',
           color: :green
         )
       end
 
       it { expect(subject[:command]).to eq 'crystal spec' }
-      it { expect(subject[:command_options]).to eq '-- --chaos' }
+      it { expect(subject[:command_options]).to eq '-d' }
+      it { expect(subject[:command_arguments]).to eq '-- --chaos' }
       it { expect(subject[:name]).to eq 'Minitest' }
       it { expect(subject[:color]).to eq :green }
     end

@@ -1,4 +1,4 @@
-# clearing :on
+clearing :on
 
 guard :rspec, cmd: 'bundle exec rspec' do
   require "guard/rspec/dsl"

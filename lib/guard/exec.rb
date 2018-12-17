@@ -1,11 +1,12 @@
 require 'colorize'
-require 'guard/exec/version'
 require 'guard/compat/plugin'
+require 'guard/exec/version'
+require 'guard/exec/options'
+require 'guard/exec/runner'
 
 module Guard
   class Exec < Plugin
-    attr_accessor :options
-
+    attr_accessor :options, :runner
     # Initializes a Guard plugin.
     # Don't do any work here, especially as Guard plugins get initialized even if they are not in an active group!
     #
@@ -15,8 +16,12 @@ module Guard
     # @option options [Boolean] any_return allow any object to be returned from a watcher
     #
     def initialize(options = {})
+      raise MissingCommandOption unless options[:command]
+
       super
-      @options = Options.new(options)
+
+      @options = Options.with_defaults(options)
+      @runner = Runner.new(@options)
     end
 
     # Called once when Guard starts. Please override initialize method to init stuff.
@@ -51,8 +56,9 @@ module Guard
     # @return [Object] the task result
     #
     def run_all
-      Compat::UI.info("Running all #{options[:name].downcase}")
-      exec_command
+      Compat::UI.info ['Running all', options[:name]].compact.join ' '
+
+      runner.run
     end
 
     # Called on file(s) additions that the Guard plugin watches.
@@ -75,7 +81,7 @@ module Guard
 
       Compat::UI.info("Running: [#{paths.join(', ')}]", reset: true)
 
-      exec_command(paths)
+      runner.run(paths)
     end
 
     # Called on file(s) removals that the Guard plugin watches.
@@ -87,22 +93,10 @@ module Guard
     def run_on_removals(paths)
     end
 
-    private
-
-    def exec_command(paths = nil)
-      cmd = [
-        options[:command],
-        paths,
-        options[:command_options]
-      ].compact.join(' ')
-
-      puts "\n#{title_display} [exec] : - #{cmd}\n\n"
-
-      system cmd
-    end
-
-    def title_display
-      "❱ #{options[:name].capitalize}".colorize(options[:color])
+    class MissingCommandOption < StandardError
+      def message
+        'missing required option :command'
+      end
     end
   end
 end

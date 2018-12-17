@@ -114,3 +114,7 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 13
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
