@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    guard-exec (0.1.0.pre.alpha)
+    guard-exec (0.1.0)
       colorize
       guard (~> 2.1)
       guard-compat (~> 1.1)
