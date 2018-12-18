@@ -39,20 +39,11 @@ The following options are available:
   The display color of yout proccess, Please read
   [Colorize usage](https://github.com/fazibear/colorize).
 - command
-  The command to run as you would run it from the command line.
-  ```
-  crystal spec
-  ```
+  The command to run as you would run it from the command line `crystal spec`
 - command_options
-  The command options or switches
-  ```
-  -d
-  ```
+  The command options or switches ` -d`
 - commands_arguments
-  The command arguments
-  ```
-  -- --chaos
-  ```
+  The command arguments ` -- --chaos`
 
 ## Examples
 
