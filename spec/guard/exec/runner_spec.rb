@@ -1,4 +1,6 @@
 RSpec.describe Guard::Exec::Runner do
+  before { allow($stdout).to receive(:puts) }
+
   let(:options) do
     Guard::Exec::Options.with_defaults(
       name: 'listing',
@@ -28,8 +30,8 @@ RSpec.describe Guard::Exec::Runner do
   describe '#run' do
     it 'runs command' do
       expect(subject).to receive(:system).with('ls -a | grep ruby')
-      expect(Guard::Compat::UI).to \
-        receive(:info).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls -a | grep ruby\n\n))
+      expect($stdout).to \
+        receive(:puts).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls -a | grep ruby\n\n))
 
       subject.run
     end
@@ -37,8 +39,8 @@ RSpec.describe Guard::Exec::Runner do
     context 'with paths' do
       it 'runs command' do
         expect(subject).to receive(:system).with('ls -a / | grep ruby')
-        expect(Guard::Compat::UI).to \
-          receive(:info).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls -a / | grep ruby\n\n))
+        expect($stdout).to \
+          receive(:puts).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls -a / | grep ruby\n\n))
 
         subject.run ['/']
       end
@@ -49,8 +51,8 @@ RSpec.describe Guard::Exec::Runner do
 
       it 'runs command' do
         expect(subject).to receive(:system).with('ls / | grep ruby')
-        expect(Guard::Compat::UI).to \
-          receive(:info).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls / | grep ruby\n\n))
+        expect($stdout).to \
+          receive(:puts).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls / | grep ruby\n\n))
 
         subject.run ['/']
       end
@@ -60,8 +62,8 @@ RSpec.describe Guard::Exec::Runner do
 
         it 'runs command' do
           expect(subject).to receive(:system).with('ls /')
-          expect(Guard::Compat::UI).to \
-            receive(:info).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls /\n\n))
+          expect($stdout).to \
+            receive(:puts).with(%(\n\e[0;34;49m❱ Listing\e[0m [exec] : - ls /\n\n))
 
           subject.run ['/']
         end

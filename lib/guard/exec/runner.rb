@@ -37,7 +37,7 @@ module Guard
       end
 
       def show_command(command)
-        Compat::UI.info "\n#{title} [exec] : - #{command}\n\n"
+        $stdout.puts "\n#{title} [exec] : - #{command}\n\n"
       end
     end
   end
