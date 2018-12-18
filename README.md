@@ -53,7 +53,7 @@ The following options are available:
 # crystal spec -- --chaos
 guard :exec, name: 'Minitest', command: 'crystal spec', comand_arguments: '-- --chaos' do
   watch(%r{^spec/(.*)_spec\.cr})
-  watch(%r{^src/[^/+]+/(.+)\.cr$})  { |m| "spec/#{m[1]}_spec.cr" }
+  watch(%r{^src/(.+)\.cr$}) { |m| "spec/#{m[1]}_spec.cr" }
 end
 
 ```
@@ -63,8 +63,8 @@ end
 # mix test
 guard :exec, name: 'Test', command: 'mix test' do
   watch(%r{^test/(.*)_test\.exs})
-  watch(%r{^lib/(.+)\.ex$})           { |m| "test/#{m[1]}_test.exs" }
-  watch(%r{^test/test_helper.exs$})   { "test" }
+  watch(%r{^lib/(.+)\.ex$})         { |m| "test/#{m[1]}_test.exs" }
+  watch(%r{^test/test_helper.exs$}) { "test" }
 end
 ```
 
