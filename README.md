@@ -9,12 +9,6 @@ Add the gem to your Gemfile (inside development group):
  gem 'guard-exec', require: false
 ```
 
-Add guard definition to your Guardfile by running this command:
-
-```
-$ bundle exec guard init rspec
-```
-
 ## Usage
 
 Please read [Guard usage doc](https://github.com/guard/guard#readme).
